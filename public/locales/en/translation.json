@@ -2,6 +2,15 @@
   "maps": "Maps",
   "places": "Places",
   "dark_mode": "Dark Mode",
+  "light_mode": "Light Mode",
   "search_places": "Search Places",
-  "category": "Category"
+  "category": "Category",
+  "description": "Description",
+  "name": "Name",
+  "address": "Address",
+  "languages": {
+    "english": "English",
+    "german": "German",
+    "french": "French"
+  }
 }

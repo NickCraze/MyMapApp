@@ -2,6 +2,15 @@
   "maps": "Cartes",
   "places": "Lieux",
   "dark_mode": "Mode Sombre",
+  "light_mode": "Mode clair",
   "search_places": "Rechercher des lieux",
-  "category": "Catégorie"
+  "name": "Nom",
+  "description": "Description",
+  "category": "Catégorie",
+  "address": "Adresse",
+  "languages": {
+    "english": "Anglais",
+    "german": "Allemand",
+    "french": "Français"
+  }
 }

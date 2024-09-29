@@ -37,7 +37,6 @@ export const CategorySelect: React.FC<CategorySelectProps> = ({
         sx={{ m: 1, minWidth: 70, padding: 0 }}
         size="small"
       >
-        <InputLabel>Category</InputLabel>
         <Select
           autoWidth={true}
           size="small"
@@ -45,8 +44,10 @@ export const CategorySelect: React.FC<CategorySelectProps> = ({
           value={category}
           onChange={handleChange}
           sx={{ padding: 0, fontSize: 15, background: " white " }}
+          inputProps={{ "aria-label": "Without label" }}
+          displayEmpty
         >
-          <MenuItem value="">All</MenuItem>
+          <MenuItem value="">Categories</MenuItem>
           {categories.map((category) => (
             <MenuItem key={category} value={category}>
               {category.replace(/_/g, " ").toUpperCase()}

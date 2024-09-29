@@ -3,6 +3,7 @@ import React from "react";
 import { TextField, InputAdornment, IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 
 // Search field styling
 const SearchField = styled(TextField)`
@@ -28,10 +29,11 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   handleSearchInputChange,
   handleSearchSubmit,
 }) => {
+  const { t } = useTranslation();
   return (
     <StyledForm onSubmit={handleSearchSubmit}>
       <SearchField
-        label="Search Places"
+        label={t("search_places")}
         variant="outlined"
         value={searchQuery}
         size="small"

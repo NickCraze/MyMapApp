@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Table,
   TableBody,
@@ -15,6 +15,9 @@ import {
   StyledTableContainer,
   CenteredContainer,
 } from "../styles/TableStyles";
+import { useTranslation } from "react-i18next";
+import LanguageSelect from "./languageSelect/language-select";
+import i18n from "../i18n";
 
 interface Place {
   id: string;
@@ -51,7 +54,14 @@ export const TableContent: React.FC<TableContentProps> = ({
   setSortDirection,
   isLoading,
 }) => {
-  // Handle page change
+  const [language, setLanguage] = useState<string>("en");
+
+  function handleLanguageChange(language: string) {
+    i18n.changeLanguage(language);
+    setLanguage(language);
+  }
+  const { t } = useTranslation();
+
   const handlePageChange = (
     event: React.ChangeEvent<unknown>,
     value: number
@@ -85,20 +95,20 @@ export const TableContent: React.FC<TableContentProps> = ({
             <TableRow>
               {/* Header cells with sorting functionality */}
               <StyledTableHeaderCell onClick={() => handleSort("name")}>
-                Name{" "}
+                {t("name")}{" "}
                 {sortBy === "name" && (sortDirection === "asc" ? "▲" : "▼")}
               </StyledTableHeaderCell>
               <StyledTableHeaderCell onClick={() => handleSort("category")}>
-                Category{" "}
+                {t("category")}{" "}
                 {sortBy === "category" && (sortDirection === "asc" ? "▲" : "▼")}
               </StyledTableHeaderCell>
               <StyledTableHeaderCell onClick={() => handleSort("description")}>
-                Description{" "}
+                {t("description")}{" "}
                 {sortBy === "description" &&
                   (sortDirection === "asc" ? "▲" : "▼")}
               </StyledTableHeaderCell>
               <StyledTableHeaderCell onClick={() => handleSort("address")}>
-                Address{" "}
+                {t("address")}{" "}
                 {sortBy === "address" && (sortDirection === "asc" ? "▲" : "▼")}
               </StyledTableHeaderCell>
             </TableRow>
@@ -119,7 +129,11 @@ export const TableContent: React.FC<TableContentProps> = ({
         </Table>
       </StyledTableContainer>
 
-      <Box mt={2} display="flex" justifyContent="center">
+      <Box mt={2} display="flex" justifyContent="center" alignItems="center">
+        <LanguageSelect
+          language={language}
+          handleLanguageChange={handleLanguageChange}
+        />
         <Pagination
           count={Math.ceil(totalItems / limit)} // Total number of pages
           page={page}
