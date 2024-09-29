@@ -99,19 +99,10 @@ export const PlacesTable: React.FC<TableViewProps> = ({
           setCategory={setCategory}
           categories={categories}
         />
-
-        <Box ml={2}>
-          <Select value={limit} onChange={handleLimitChange}>
-            <MenuItem value={3}>3</MenuItem>
-            <MenuItem value={5}>5</MenuItem>
-            <MenuItem value={10}>10</MenuItem>
-            <MenuItem value={25}>25</MenuItem>
-            <MenuItem value={50}>50</MenuItem>
-          </Select>
-        </Box>
       </SearchWrapper>
 
       <TableContent
+        setLimit={setLimit}
         places={places}
         onRowClick={handleRowClick}
         page={page}

@@ -62,11 +62,13 @@ const App: React.FC = () => {
 
   useEffect(() => {
     refetch();
+  }, [page, sortBy, sortDirection, search, category, activeTab, refetch]);
+
+  useEffect(() => {
     fetchCategories().then((categoriesData) => {
       setCategories(categoriesData);
-      console.log("Categories:", categoriesData);
     });
-  }, [page, sortBy, sortDirection, search, category, activeTab, refetch]);
+  }, []);
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setActiveTab(newValue);

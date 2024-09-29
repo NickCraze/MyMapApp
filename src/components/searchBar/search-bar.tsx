@@ -21,7 +21,7 @@ const StyledForm = styled.form`
 interface SearchBarProps {
   searchQuery: string;
   handleSearchInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleSearchSubmit: (event: React.FormEvent) => void; // Ensure form submission works
+  handleSearchSubmit: (event: React.FormEvent) => void;
 }
 
 export const SearchBar: React.FC<SearchBarProps> = ({

@@ -22,7 +22,7 @@ const LanguageSelect: React.FC<LanguageSelectProps> = ({
       label="Language"
       inputProps={{ "aria-label": "Without label" }}
       displayEmpty
-      onChange={(event) => handleLanguageChange(event.target.value as string)} // Correctly extract value from event
+      onChange={(event) => handleLanguageChange(event.target.value as string)}
     >
       <MenuItem value="en">{t("languages.english")} 🇬🇧</MenuItem>
       <MenuItem value="de">{t("languages.german")} 🇩🇪</MenuItem>

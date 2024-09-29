@@ -4,9 +4,9 @@ import {
   TableBody,
   TableHead,
   TableRow,
-  Pagination,
-  Box,
   CircularProgress,
+  Box,
+  TablePagination,
 } from "@mui/material";
 import {
   StyledTableCell,
@@ -34,6 +34,7 @@ interface TableContentProps {
   setPage: React.Dispatch<React.SetStateAction<number>>;
   totalItems: number;
   limit: number;
+  setLimit: React.Dispatch<React.SetStateAction<number>>; // Handle rows per page
   sortBy: string;
   setSortBy: React.Dispatch<React.SetStateAction<string>>;
   sortDirection: string;
@@ -48,6 +49,7 @@ export const TableContent: React.FC<TableContentProps> = ({
   setPage,
   totalItems,
   limit,
+  setLimit,
   sortBy,
   setSortBy,
   sortDirection,
@@ -62,20 +64,23 @@ export const TableContent: React.FC<TableContentProps> = ({
   }
   const { t } = useTranslation();
 
-  const handlePageChange = (
-    event: React.ChangeEvent<unknown>,
-    value: number
+  const handlePageChange = (event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handleRowsPerPageChange = (
+    event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setPage(value);
+    setLimit(parseInt(event.target.value, 10));
+    setPage(1);
   };
 
   const handleSort = (column: string) => {
     if (sortBy === column) {
-      // Toggle between ascending and descending
       setSortDirection(sortDirection === "asc" ? "desc" : "asc");
     } else {
       setSortBy(column);
-      setSortDirection("asc"); // Default to ascending order
+      setSortDirection("asc");
     }
   };
 
@@ -93,7 +98,6 @@ export const TableContent: React.FC<TableContentProps> = ({
         <Table stickyHeader>
           <TableHead>
             <TableRow>
-              {/* Header cells with sorting functionality */}
               <StyledTableHeaderCell onClick={() => handleSort("name")}>
                 {t("name")}{" "}
                 {sortBy === "name" && (sortDirection === "asc" ? "▲" : "▼")}
@@ -134,10 +138,15 @@ export const TableContent: React.FC<TableContentProps> = ({
           language={language}
           handleLanguageChange={handleLanguageChange}
         />
-        <Pagination
-          count={Math.ceil(totalItems / limit)} // Total number of pages
-          page={page}
-          onChange={handlePageChange}
+        <TablePagination
+          component="div"
+          count={totalItems} // Total number of items, not pages
+          page={page} // Zero-based index for the current page
+          onPageChange={handlePageChange}
+          rowsPerPage={limit} // Number of rows per page
+          onRowsPerPageChange={handleRowsPerPageChange}
+          rowsPerPageOptions={[5, 10, 25, 50]} // Options for rows per page
+          labelRowsPerPage={t("Rows per page")} // Translating label if necessary
           color="primary"
         />
       </Box>
