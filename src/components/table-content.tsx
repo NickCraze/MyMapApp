@@ -57,20 +57,24 @@ export const TableContent: React.FC<TableContentProps> = ({
     i18n.changeLanguage(language);
     setLanguage(language);
   }
+
   const { t } = useTranslation();
   const theme = useTheme();
 
+  // Handle Page Change (convert zero-based to one-based when making API calls)
   const handlePageChange = (event: unknown, newPage: number) => {
-    setPage(newPage);
+    setPage(newPage + 1); // Convert zero-based index to one-based for the API
   };
 
+  // Handle Rows Per Page Change
   const handleRowsPerPageChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setLimit(parseInt(event.target.value, 10));
-    setPage(1);
+    setPage(1); // Reset to the first page when rows per page changes
   };
 
+  // Handle Sort
   const handleSort = (column: string) => {
     if (sortBy === column) {
       setSortDirection(sortDirection === "asc" ? "desc" : "asc");
@@ -143,11 +147,11 @@ export const TableContent: React.FC<TableContentProps> = ({
         <TablePagination
           component="div"
           count={totalItems} // Total number of items, not pages
-          page={page} // Zero-based index for the current page
+          page={page - 1} // Convert one-based page index to zero-based for TablePagination
           onPageChange={handlePageChange}
           rowsPerPage={limit} // Number of rows per page
           onRowsPerPageChange={handleRowsPerPageChange}
-          rowsPerPageOptions={[5, 10, 25, 50]} // Options for rows per page
+          rowsPerPageOptions={[3, 5, 10, 25, 50]} // Options for rows per page
           labelRowsPerPage={t("Rows per page")} // Translating label if necessary
           color="primary"
           sx={{

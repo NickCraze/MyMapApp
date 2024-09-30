@@ -68,7 +68,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     refetch();
-  }, [page, sortBy, sortDirection, search, category, refetch]);
+  }, [sortBy, sortDirection, search, category, refetch]);
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setActiveTab(newValue);
@@ -111,7 +111,7 @@ const App: React.FC = () => {
           <ToggleButton variant="contained" onClick={toggleTheme}>
             {t(theme === "light" ? "dark_mode" : "light_mode")}
             <LightbulbIcon
-              style={{
+              sx={{
                 marginLeft: "10px",
                 color: theme === "dark" ? "yellow" : "inherit",
               }}
@@ -129,6 +129,7 @@ const App: React.FC = () => {
                 categories={categories}
                 isLoading={isLoading}
                 handleSearchSubmit={handleSearchSubmit}
+                setPage={setPage}
               />
             )}
             {activeTab === 1 && (

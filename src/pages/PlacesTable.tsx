@@ -31,7 +31,7 @@ type TableViewProps = {
   setLimit: React.Dispatch<React.SetStateAction<number>>;
   totalItems: number;
   isLoading: boolean;
-  handleSearchSubmit: (searchQuery: string) => void; 
+  handleSearchSubmit: (searchQuery: string) => void;
 };
 
 export const PlacesTable: React.FC<TableViewProps> = ({
@@ -70,19 +70,15 @@ export const PlacesTable: React.FC<TableViewProps> = ({
     setSelectedPlace(null);
   };
 
-  const handleLimitChange = (event: SelectChangeEvent<number>) => {
-    setLimit(Number(event.target.value));
-    setPage(1);
-  };
-
   return (
     <>
       <SearchWrapper>
-        <SearchBar handleSearchSubmit={handleSearchSubmit} />
+        <SearchBar setPage={setPage} handleSearchSubmit={handleSearchSubmit} />
         <CategorySelect
           category={category}
           setCategory={setCategory}
           categories={categories}
+          setPage={setPage}
         />
       </SearchWrapper>
 

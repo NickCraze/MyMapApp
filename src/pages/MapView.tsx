@@ -39,6 +39,7 @@ type MapViewProps = {
   category: string;
   isLoading: boolean;
   handleSearchSubmit: (searchQuery: string) => void;
+  setPage: (page: number) => void;
 };
 
 export const MapView: React.FC<MapViewProps> = ({
@@ -48,6 +49,7 @@ export const MapView: React.FC<MapViewProps> = ({
   category,
   isLoading,
   handleSearchSubmit,
+  setPage,
 }) => {
   const [language, setLanguage] = useState<string>("en");
 
@@ -64,8 +66,12 @@ export const MapView: React.FC<MapViewProps> = ({
     <>
       <MapPlaceholder>
         <Wrapper>
-          <SearchBar handleSearchSubmit={handleSearchSubmit} />
+          <SearchBar
+            setPage={setPage}
+            handleSearchSubmit={handleSearchSubmit}
+          />
           <CategorySelect
+            setPage={setPage}
             category={category}
             setCategory={setCategory}
             categories={categories}

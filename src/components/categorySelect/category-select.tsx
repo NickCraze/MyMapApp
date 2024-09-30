@@ -1,15 +1,11 @@
 import React from "react";
-import {
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-  Box,
-} from "@mui/material";
+import { MenuItem, Select, SelectChangeEvent, Box } from "@mui/material";
 import { styled } from "styled-components";
 
 interface CategorySelectProps {
   category: string;
   setCategory: (category: string) => void;
+  setPage: (page: number) => void;
   categories: string[];
 }
 
@@ -24,9 +20,11 @@ export const CategorySelect: React.FC<CategorySelectProps> = ({
   category,
   setCategory,
   categories,
+  setPage,
 }) => {
   const handleChange = (event: SelectChangeEvent) => {
     setCategory(event.target.value as string);
+    setPage(1);
   };
 
   return (

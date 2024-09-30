@@ -19,9 +19,13 @@ const StyledForm = styled.form`
 
 interface SearchBarProps {
   handleSearchSubmit: (searchQuery: string) => void;
+  setPage: (page: number) => void;
 }
 
-export const SearchBar: React.FC<SearchBarProps> = ({ handleSearchSubmit }) => {
+export const SearchBar: React.FC<SearchBarProps> = ({
+  handleSearchSubmit,
+  setPage,
+}) => {
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   const { t } = useTranslation();
@@ -29,6 +33,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ handleSearchSubmit }) => {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     handleSearchSubmit(searchQuery);
+    setPage(1);
   };
 
   return (
