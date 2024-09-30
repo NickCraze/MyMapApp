@@ -1,4 +1,3 @@
-// src/components/searchBar/search-bar.tsx
 import React, { useState } from "react";
 import { TextField, InputAdornment, IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
@@ -6,7 +5,6 @@ import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 import ClearIcon from "@mui/icons-material/Clear";
 
-// Search field styling
 const SearchField = styled(TextField)`
   background-color: white;
   width: 40%;

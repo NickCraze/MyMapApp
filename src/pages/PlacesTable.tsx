@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { MenuItem, Select, Box, SelectChangeEvent } from "@mui/material";
+import { SelectChangeEvent } from "@mui/material";
 import { fetchPlaceById } from "../services/api";
 import { SearchBar } from "../components/searchBar/search-bar";
 import { TableContent } from "../components/table-content";
@@ -31,7 +31,7 @@ type TableViewProps = {
   setLimit: React.Dispatch<React.SetStateAction<number>>;
   totalItems: number;
   isLoading: boolean;
-  handleSearchSubmit: (searchQuery: string) => void; // Updated to receive the submit handler
+  handleSearchSubmit: (searchQuery: string) => void; 
 };
 
 export const PlacesTable: React.FC<TableViewProps> = ({

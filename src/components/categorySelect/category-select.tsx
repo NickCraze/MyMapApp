@@ -1,8 +1,6 @@
 import React from "react";
 import {
-  InputLabel,
   MenuItem,
-  FormControl,
   Select,
   SelectChangeEvent,
   Box,
@@ -38,9 +36,9 @@ export const CategorySelect: React.FC<CategorySelectProps> = ({
         size="small"
         labelId="category-select-label"
         value={category}
-        onChange={handleChange}
         sx={{ background: " white " }}
         inputProps={{ "aria-label": "Without label" }}
+        onChange={handleChange}
         displayEmpty
       >
         <MenuItem value="">Categories</MenuItem>

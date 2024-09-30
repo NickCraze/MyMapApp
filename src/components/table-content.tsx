@@ -21,7 +21,6 @@ import i18n from "../i18n";
 import { Place } from "../types/Places";
 import { useTheme } from "styled-components";
 import { lightTheme } from "../styles/themes";
-import { wrap } from "module";
 
 interface TableContentProps {
   places: Place[];
@@ -30,7 +29,7 @@ interface TableContentProps {
   setPage: React.Dispatch<React.SetStateAction<number>>;
   totalItems: number;
   limit: number;
-  setLimit: React.Dispatch<React.SetStateAction<number>>; // Handle rows per page
+  setLimit: React.Dispatch<React.SetStateAction<number>>;
   sortBy: string;
   setSortBy: React.Dispatch<React.SetStateAction<string>>;
   sortDirection: string;

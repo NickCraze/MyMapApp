@@ -23,14 +23,13 @@ const LanguageSelect: React.FC<LanguageSelectProps> = ({
         background: theme === lightTheme ? "white" : "#77767682",
         margin: "10px",
         flex: "start",
-        flexWrap: "wrap",
       }}
       value={language}
-      label="Language"
+      labelId="language-select-label"
       inputProps={{ "aria-label": "Without label" }}
-      displayEmpty
       onChange={(event) => handleLanguageChange(event.target.value as string)}
-    >
+      displayEmpty
+      >
       <MenuItem value="en">{t("languages.english")} 🇬🇧</MenuItem>
       <MenuItem value="de">{t("languages.german")} 🇩🇪</MenuItem>
       <MenuItem value="fr">{t("languages.french")} 🇫🇷</MenuItem>

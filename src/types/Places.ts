@@ -1,4 +1,3 @@
-// src/types.ts
 export interface Coordinates {
   lat: number;
   lon: number;

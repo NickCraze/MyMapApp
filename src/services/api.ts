@@ -2,10 +2,8 @@ import axios from "axios";
 import { PlacesResponse } from "../types/Places";
 import { filterCategories } from "../utils/filterCategories";
 
-const OCTIV_API_PUBLIC_URL =
-  "dfm ds https://api-octiv-test.vercel.app/api/places";
+const OCTIV_API_PUBLIC_URL = "https://api-octiv-test.vercel.app/api/places";
 
-// Fetch places function remains the same
 export const fetchPlaces = async (
   search: string,
   category: string,
@@ -16,7 +14,6 @@ export const fetchPlaces = async (
 ): Promise<PlacesResponse> => {
   const params: any = {};
 
-  // Conditionally add parameters
   if (search) {
     params.search = search;
   }

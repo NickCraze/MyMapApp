@@ -8,12 +8,11 @@ import { CustomIconKeys, customIcons } from "../assets/iconExport";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import { useTheme } from "styled-components";
 import { lightTheme } from "../styles/themes";
-import { MenuItem, Select } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import LanguageSelect from "../components/languageSelect/language-select";
 
 const MapPlaceholder = styled.div`
-  height: 78vh;
+  height: 76vh;
   width: 100%;
   background-color: ${({ theme }) => theme.background || "#e0e0e0"};
   border: 3px solid ${({ theme }) => theme.toggleBorder || "#000"};
@@ -39,7 +38,7 @@ type MapViewProps = {
   setCategory: React.Dispatch<React.SetStateAction<string>>;
   category: string;
   isLoading: boolean;
-  handleSearchSubmit: (searchQuery: string) => void; // Updated to receive the submit handler
+  handleSearchSubmit: (searchQuery: string) => void;
 };
 
 export const MapView: React.FC<MapViewProps> = ({
@@ -65,13 +64,11 @@ export const MapView: React.FC<MapViewProps> = ({
     <>
       <MapPlaceholder>
         <Wrapper>
-          <SearchBar
-            handleSearchSubmit={handleSearchSubmit} // Submit search form
-          />
+          <SearchBar handleSearchSubmit={handleSearchSubmit} />
           <CategorySelect
             category={category}
-            setCategory={setCategory} // Update category state
-            categories={categories} // Use the cached categories
+            setCategory={setCategory}
+            categories={categories}
           />
         </Wrapper>
         <MapContainer
