@@ -37,7 +37,6 @@ type MapViewProps = {
   categories: string[];
   setCategory: React.Dispatch<React.SetStateAction<string>>;
   category: string;
-  isLoading: boolean;
   handleSearchSubmit: (searchQuery: string) => void;
   setPage: (page: number) => void;
 };
@@ -47,7 +46,6 @@ export const MapView: React.FC<MapViewProps> = ({
   categories,
   setCategory,
   category,
-  isLoading,
   handleSearchSubmit,
   setPage,
 }) => {
@@ -55,7 +53,7 @@ export const MapView: React.FC<MapViewProps> = ({
 
   const theme = useTheme();
 
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
 
   function handleLanguageChange(language: string) {
     i18n.changeLanguage(language);

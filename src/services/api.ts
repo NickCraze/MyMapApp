@@ -2,7 +2,7 @@ import axios from "axios";
 import { PlacesResponse } from "../types/Places";
 import { filterCategories } from "../utils/filterCategories";
 
-const OCTIV_API_PUBLIC_URL = "https://api-octiv-test.vercel.app/api/places";
+const OCTIV_API_PUBLIC_URL = "https://api-octiv-test.vercel.app/api/places"; // Would usually go in the process.env file
 
 export const fetchPlaces = async (
   search: string,

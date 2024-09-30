@@ -6,21 +6,11 @@ import {
   DialogActions,
   Button,
 } from "@mui/material";
-
-interface PlaceDetails {
-  name: string;
-  description: string;
-  category: string;
-  address: string;
-  coordinates: {
-    lat: number;
-    lon: number;
-  };
-}
+import { Place } from "../../types/Places";
 
 interface ModalProps {
   isOpen: boolean;
-  selectedPlace: PlaceDetails | null;
+  selectedPlace: Place | null;
   onClose: () => void;
 }
 

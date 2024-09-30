@@ -14,13 +14,13 @@ import {
   StyledTableHeaderCell,
   StyledTableContainer,
   CenteredContainer,
-} from "../styles/TableStyles";
+} from "../../styles/TableStyles";
 import { useTranslation } from "react-i18next";
-import LanguageSelect from "./languageSelect/language-select";
-import i18n from "../i18n";
-import { Place } from "../types/Places";
+import LanguageSelect from "../languageSelect/language-select";
+import i18n from "../../i18n";
+import { Place } from "../../types/Places";
 import { useTheme } from "styled-components";
-import { lightTheme } from "../styles/themes";
+import { lightTheme } from "../../styles/themes";
 
 interface TableContentProps {
   places: Place[];
@@ -61,20 +61,17 @@ export const TableContent: React.FC<TableContentProps> = ({
   const { t } = useTranslation();
   const theme = useTheme();
 
-  // Handle Page Change (convert zero-based to one-based when making API calls)
   const handlePageChange = (event: unknown, newPage: number) => {
-    setPage(newPage + 1); // Convert zero-based index to one-based for the API
+    setPage(newPage + 1);
   };
 
-  // Handle Rows Per Page Change
   const handleRowsPerPageChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setLimit(parseInt(event.target.value, 10));
-    setPage(1); // Reset to the first page when rows per page changes
+    setPage(1);
   };
 
-  // Handle Sort
   const handleSort = (column: string) => {
     if (sortBy === column) {
       setSortDirection(sortDirection === "asc" ? "desc" : "asc");
@@ -146,13 +143,13 @@ export const TableContent: React.FC<TableContentProps> = ({
         />
         <TablePagination
           component="div"
-          count={totalItems} // Total number of items, not pages
-          page={page - 1} // Convert one-based page index to zero-based for TablePagination
+          count={totalItems}
+          page={page - 1}
           onPageChange={handlePageChange}
-          rowsPerPage={limit} // Number of rows per page
+          rowsPerPage={limit}
           onRowsPerPageChange={handleRowsPerPageChange}
-          rowsPerPageOptions={[3, 5, 10, 25, 50]} // Options for rows per page
-          labelRowsPerPage={t("Rows per page")} // Translating label if necessary
+          rowsPerPageOptions={[3, 5, 10, 25, 50]}
+          labelRowsPerPage={t("Rows per page")}
           color="primary"
           sx={{
             borderRadius: "5px",

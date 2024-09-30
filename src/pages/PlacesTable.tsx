@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { SelectChangeEvent } from "@mui/material";
 import { fetchPlaceById } from "../services/api";
 import { SearchBar } from "../components/searchBar/search-bar";
-import { TableContent } from "../components/table-content";
+import { TableContent } from "../components/TableContent/table-content";
 import { Modal } from "../components/modal/modal";
 import { styled } from "styled-components";
 import { CategorySelect } from "../components/categorySelect/category-select";
@@ -16,41 +15,38 @@ const SearchWrapper = styled.div`
 
 type TableViewProps = {
   places: Place[];
-
   categories: string[];
-  setCategories: React.Dispatch<React.SetStateAction<string[]>>;
-  setCategory: React.Dispatch<React.SetStateAction<string>>;
   category: string;
   sortBy: string;
-  setSortBy: React.Dispatch<React.SetStateAction<string>>;
   sortDirection: string;
-  setSortDirection: React.Dispatch<React.SetStateAction<string>>;
   page: number;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
   limit: number;
-  setLimit: React.Dispatch<React.SetStateAction<number>>;
   totalItems: number;
   isLoading: boolean;
+  setCategory: React.Dispatch<React.SetStateAction<string>>;
+  setSortBy: React.Dispatch<React.SetStateAction<string>>;
+  setSortDirection: React.Dispatch<React.SetStateAction<string>>;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+  setLimit: React.Dispatch<React.SetStateAction<number>>;
   handleSearchSubmit: (searchQuery: string) => void;
 };
 
 export const PlacesTable: React.FC<TableViewProps> = ({
   places,
-  handleSearchSubmit,
-
   category,
-  setCategory,
   categories,
   sortBy,
-  setSortBy,
   sortDirection,
-  setSortDirection,
   page,
-  setPage,
   limit,
-  setLimit,
   totalItems,
   isLoading,
+  handleSearchSubmit,
+  setCategory,
+  setSortBy,
+  setSortDirection,
+  setPage,
+  setLimit,
 }) => {
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
