@@ -94,7 +94,7 @@ export const MapView: React.FC<MapViewProps> = ({
           ) : (
             <TileLayer
               attribution="Stamen darkmode"
-              url="https://tiles.stadiamaps.com/tiles/alidade_satellite/{z}/{x}/{y}{r}.png"
+              url="https://tiles.stadiamaps.com/tiles/stamen_watercolor/{z}/{x}/{y}.jpg"
             />
           )}
 
