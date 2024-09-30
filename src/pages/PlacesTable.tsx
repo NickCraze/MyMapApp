@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { MenuItem, Select, Box, SelectChangeEvent } from "@mui/material";
 import { fetchPlaceById } from "../services/api";
 import { SearchBar } from "../components/searchBar/search-bar";
-import { TableContent } from "../components/TableContent";
+import { TableContent } from "../components/table-content";
 import { Modal } from "../components/modal/modal";
 import { styled } from "styled-components";
 import { CategorySelect } from "../components/categorySelect/category-select";
@@ -16,8 +16,7 @@ const SearchWrapper = styled.div`
 
 type TableViewProps = {
   places: Place[];
-  searchQuery: string;
-  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
+
   categories: string[];
   setCategories: React.Dispatch<React.SetStateAction<string[]>>;
   setCategory: React.Dispatch<React.SetStateAction<string>>;
@@ -32,12 +31,13 @@ type TableViewProps = {
   setLimit: React.Dispatch<React.SetStateAction<number>>;
   totalItems: number;
   isLoading: boolean;
+  handleSearchSubmit: (searchQuery: string) => void; // Updated to receive the submit handler
 };
 
 export const PlacesTable: React.FC<TableViewProps> = ({
   places,
-  searchQuery,
-  setSearchQuery,
+  handleSearchSubmit,
+
   category,
   setCategory,
   categories,
@@ -52,19 +52,8 @@ export const PlacesTable: React.FC<TableViewProps> = ({
   totalItems,
   isLoading,
 }) => {
-  const [submittedQuery, setSubmittedQuery] = useState<string>(searchQuery);
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-
-  const handleSearchInputChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setSearchQuery(event.target.value);
-  };
-
-  const handleSearchSubmit = () => {
-    setSubmittedQuery(searchQuery);
-  };
 
   const handleRowClick = async (id: string) => {
     try {
@@ -89,11 +78,7 @@ export const PlacesTable: React.FC<TableViewProps> = ({
   return (
     <>
       <SearchWrapper>
-        <SearchBar
-          searchQuery={searchQuery}
-          handleSearchInputChange={handleSearchInputChange}
-          handleSearchSubmit={handleSearchSubmit}
-        />
+        <SearchBar handleSearchSubmit={handleSearchSubmit} />
         <CategorySelect
           category={category}
           setCategory={setCategory}

@@ -1,9 +1,10 @@
 // src/components/searchBar/search-bar.tsx
-import React from "react";
+import React, { useState } from "react";
 import { TextField, InputAdornment, IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
+import ClearIcon from "@mui/icons-material/Clear";
 
 // Search field styling
 const SearchField = styled(TextField)`
@@ -19,29 +20,39 @@ const StyledForm = styled.form`
 `;
 
 interface SearchBarProps {
-  searchQuery: string;
-  handleSearchInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleSearchSubmit: (event: React.FormEvent) => void;
+  handleSearchSubmit: (searchQuery: string) => void;
 }
 
-export const SearchBar: React.FC<SearchBarProps> = ({
-  searchQuery,
-  handleSearchInputChange,
-  handleSearchSubmit,
-}) => {
+export const SearchBar: React.FC<SearchBarProps> = ({ handleSearchSubmit }) => {
+  const [searchQuery, setSearchQuery] = useState<string>("");
+
   const { t } = useTranslation();
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    handleSearchSubmit(searchQuery);
+  };
+
   return (
-    <StyledForm onSubmit={handleSearchSubmit}>
+    <StyledForm onSubmit={handleSubmit}>
       <SearchField
         label={t("search_places")}
         variant="outlined"
         value={searchQuery}
         size="small"
-        onChange={handleSearchInputChange}
+        onChange={(event) => setSearchQuery(event.target.value)}
         slotProps={{
           input: {
             endAdornment: (
               <InputAdornment position="start">
+                {searchQuery && (
+                  <IconButton
+                    onClick={() => setSearchQuery("")}
+                    aria-label="clear search"
+                  >
+                    <ClearIcon />
+                  </IconButton>
+                )}
                 <IconButton type="submit">
                   <SearchIcon />
                 </IconButton>

@@ -35,36 +35,21 @@ const Wrapper = styled.div`
 
 type MapViewProps = {
   places: Place[];
-  searchQuery: string;
-  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
   categories: string[];
   setCategory: React.Dispatch<React.SetStateAction<string>>;
   category: string;
   isLoading: boolean;
-  handleSearchSubmit: (event: React.FormEvent) => void; // Updated to receive the submit handler
-  refetchPlaces: () => void; // Add refetchPlaces prop
+  handleSearchSubmit: (searchQuery: string) => void; // Updated to receive the submit handler
 };
 
 export const MapView: React.FC<MapViewProps> = ({
   places,
-  searchQuery,
-  setSearchQuery,
   categories,
   setCategory,
   category,
   isLoading,
-  refetchPlaces, // Receive refetch function
+  handleSearchSubmit,
 }) => {
-  const handleSearchInputChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setSearchQuery(event.target.value);
-  };
-
-  const handleSearchSubmit = (event: React.FormEvent) => {
-    event.preventDefault(); // Prevent form default action
-    refetchPlaces(); // Trigger the API call
-  };
   const [language, setLanguage] = useState<string>("en");
 
   const theme = useTheme();
@@ -81,8 +66,6 @@ export const MapView: React.FC<MapViewProps> = ({
       <MapPlaceholder>
         <Wrapper>
           <SearchBar
-            searchQuery={searchQuery}
-            handleSearchInputChange={handleSearchInputChange}
             handleSearchSubmit={handleSearchSubmit} // Submit search form
           />
           <CategorySelect

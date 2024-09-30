@@ -18,14 +18,10 @@ import {
 import { useTranslation } from "react-i18next";
 import LanguageSelect from "./languageSelect/language-select";
 import i18n from "../i18n";
-
-interface Place {
-  id: string;
-  name: string;
-  category: string;
-  description: string;
-  address: string;
-}
+import { Place } from "../types/Places";
+import { useTheme } from "styled-components";
+import { lightTheme } from "../styles/themes";
+import { wrap } from "module";
 
 interface TableContentProps {
   places: Place[];
@@ -63,6 +59,7 @@ export const TableContent: React.FC<TableContentProps> = ({
     setLanguage(language);
   }
   const { t } = useTranslation();
+  const theme = useTheme();
 
   const handlePageChange = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -133,7 +130,13 @@ export const TableContent: React.FC<TableContentProps> = ({
         </Table>
       </StyledTableContainer>
 
-      <Box mt={2} display="flex" justifyContent="center" alignItems="center">
+      <Box
+        mt={2}
+        display="flex"
+        flexWrap="wrap"
+        justifyContent="center"
+        alignItems="center"
+      >
         <LanguageSelect
           language={language}
           handleLanguageChange={handleLanguageChange}
@@ -148,6 +151,10 @@ export const TableContent: React.FC<TableContentProps> = ({
           rowsPerPageOptions={[5, 10, 25, 50]} // Options for rows per page
           labelRowsPerPage={t("Rows per page")} // Translating label if necessary
           color="primary"
+          sx={{
+            borderRadius: "5px",
+            background: theme === lightTheme ? "white" : "#77767682",
+          }}
         />
       </Box>
     </>

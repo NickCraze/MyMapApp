@@ -61,14 +61,14 @@ const App: React.FC = () => {
   });
 
   useEffect(() => {
-    refetch();
-  }, [page, sortBy, sortDirection, search, category, activeTab, refetch]);
-
-  useEffect(() => {
     fetchCategories().then((categoriesData) => {
       setCategories(categoriesData);
     });
   }, []);
+
+  useEffect(() => {
+    refetch();
+  }, [page, sortBy, sortDirection, search, category, refetch]);
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setActiveTab(newValue);
@@ -78,9 +78,8 @@ const App: React.FC = () => {
     setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
   };
 
-  const handleSearchSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    refetch();
+  const handleSearchSubmit = (searchQuery: string) => {
+    setSearch(searchQuery);
   };
 
   return (
@@ -125,21 +124,16 @@ const App: React.FC = () => {
             {activeTab === 0 && (
               <MapView
                 places={places?.data ?? []}
-                searchQuery={search}
-                setSearchQuery={setSearch}
                 category={category}
                 setCategory={setCategory}
                 categories={categories}
                 isLoading={isLoading}
                 handleSearchSubmit={handleSearchSubmit}
-                refetchPlaces={refetch}
               />
             )}
             {activeTab === 1 && (
               <PlacesTable
                 places={places?.data ?? []}
-                searchQuery={search}
-                setSearchQuery={setSearch}
                 category={category}
                 setCategory={setCategory}
                 categories={categories}
@@ -153,6 +147,7 @@ const App: React.FC = () => {
                 limit={limit}
                 setLimit={setLimit}
                 isLoading={isLoading}
+                handleSearchSubmit={handleSearchSubmit}
                 totalItems={places?.meta.totalItems ?? 0}
               />
             )}
