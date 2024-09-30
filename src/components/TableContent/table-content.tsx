@@ -77,8 +77,10 @@ export const TableContent: React.FC<TableContentProps> = ({
       setSortDirection(sortDirection === "asc" ? "desc" : "asc");
     } else {
       setSortBy(column);
+
       setSortDirection("asc");
     }
+    setPage(1);
   };
 
   if (isLoading) {
