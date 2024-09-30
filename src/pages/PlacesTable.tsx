@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { MenuItem, Select, Box, SelectChangeEvent } from "@mui/material";
 import { fetchPlaceById } from "../services/api";
 import { SearchBar } from "../components/searchBar/search-bar";
-import { TableContent } from "../components/TableContent";
+import { TableContent } from "../components/TableContent/table-content";
 import { Modal } from "../components/modal/modal";
 import { styled } from "styled-components";
 import { CategorySelect } from "../components/categorySelect/category-select";
@@ -16,55 +15,41 @@ const SearchWrapper = styled.div`
 
 type TableViewProps = {
   places: Place[];
-  searchQuery: string;
-  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
   categories: string[];
-  setCategories: React.Dispatch<React.SetStateAction<string[]>>;
-  setCategory: React.Dispatch<React.SetStateAction<string>>;
   category: string;
   sortBy: string;
-  setSortBy: React.Dispatch<React.SetStateAction<string>>;
   sortDirection: string;
-  setSortDirection: React.Dispatch<React.SetStateAction<string>>;
   page: number;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
   limit: number;
-  setLimit: React.Dispatch<React.SetStateAction<number>>;
   totalItems: number;
   isLoading: boolean;
+  setCategory: React.Dispatch<React.SetStateAction<string>>;
+  setSortBy: React.Dispatch<React.SetStateAction<string>>;
+  setSortDirection: React.Dispatch<React.SetStateAction<string>>;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+  setLimit: React.Dispatch<React.SetStateAction<number>>;
+  handleSearchSubmit: (searchQuery: string) => void;
 };
 
 export const PlacesTable: React.FC<TableViewProps> = ({
   places,
-  searchQuery,
-  setSearchQuery,
   category,
-  setCategory,
   categories,
   sortBy,
-  setSortBy,
   sortDirection,
-  setSortDirection,
   page,
-  setPage,
   limit,
-  setLimit,
   totalItems,
   isLoading,
+  handleSearchSubmit,
+  setCategory,
+  setSortBy,
+  setSortDirection,
+  setPage,
+  setLimit,
 }) => {
-  const [submittedQuery, setSubmittedQuery] = useState<string>(searchQuery);
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-
-  const handleSearchInputChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setSearchQuery(event.target.value);
-  };
-
-  const handleSearchSubmit = () => {
-    setSubmittedQuery(searchQuery);
-  };
 
   const handleRowClick = async (id: string) => {
     try {
@@ -81,37 +66,20 @@ export const PlacesTable: React.FC<TableViewProps> = ({
     setSelectedPlace(null);
   };
 
-  const handleLimitChange = (event: SelectChangeEvent<number>) => {
-    setLimit(Number(event.target.value));
-    setPage(1);
-  };
-
   return (
     <>
       <SearchWrapper>
-        <SearchBar
-          searchQuery={searchQuery}
-          handleSearchInputChange={handleSearchInputChange}
-          handleSearchSubmit={handleSearchSubmit}
-        />
+        <SearchBar setPage={setPage} handleSearchSubmit={handleSearchSubmit} />
         <CategorySelect
           category={category}
           setCategory={setCategory}
           categories={categories}
+          setPage={setPage}
         />
-
-        <Box ml={2}>
-          <Select value={limit} onChange={handleLimitChange}>
-            <MenuItem value={3}>3</MenuItem>
-            <MenuItem value={5}>5</MenuItem>
-            <MenuItem value={10}>10</MenuItem>
-            <MenuItem value={25}>25</MenuItem>
-            <MenuItem value={50}>50</MenuItem>
-          </Select>
-        </Box>
       </SearchWrapper>
 
       <TableContent
+        setLimit={setLimit}
         places={places}
         onRowClick={handleRowClick}
         page={page}

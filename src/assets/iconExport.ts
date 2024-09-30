@@ -23,5 +23,4 @@ export const customIcons = {
   }),
 };
 
-// Define the keys of the customIcons for easy reference
 export type CustomIconKeys = keyof typeof customIcons;

@@ -18,7 +18,6 @@ root.render(
       <QueryClientProvider client={queryClient}>
         <App />
       </QueryClientProvider>
-      ,
     </I18nextProvider>
   </React.StrictMode>
 );

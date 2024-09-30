@@ -2,6 +2,15 @@
   "maps": "Karten",
   "places": "Orte",
   "dark_mode": "Dunkler Modus",
+  "light_mode": "Helles Design",
   "search_places": "Orte suchen",
-  "category": "Kategorie"
+  "category": "Kategorie",
+  "name": "Name",
+  "description": "Beschreibung",
+  "address": "Adresse",
+  "languages": {
+    "english": "Englisch",
+    "german": "Deutsch",
+    "french": "Französisch"
+  }
 }

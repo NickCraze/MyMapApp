@@ -2,9 +2,8 @@ import axios from "axios";
 import { PlacesResponse } from "../types/Places";
 import { filterCategories } from "../utils/filterCategories";
 
-const API_BASE_URL = "https://api-octiv-test.vercel.app/api/places";
+const OCTIV_API_PUBLIC_URL = "https://api-octiv-test.vercel.app/api/places"; // Would usually go in the process.env file
 
-// Fetch places function remains the same
 export const fetchPlaces = async (
   search: string,
   category: string,
@@ -15,7 +14,6 @@ export const fetchPlaces = async (
 ): Promise<PlacesResponse> => {
   const params: any = {};
 
-  // Conditionally add parameters
   if (search) {
     params.search = search;
   }
@@ -35,13 +33,15 @@ export const fetchPlaces = async (
     params.page = page;
   }
 
-  const { data } = await axios.get<PlacesResponse>(API_BASE_URL, { params });
+  const { data } = await axios.get<PlacesResponse>(OCTIV_API_PUBLIC_URL, {
+    params,
+  });
   return data;
 };
 
 export const fetchPlaceById = async (id: string) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/${id}`);
+    const response = await axios.get(`${OCTIV_API_PUBLIC_URL}/${id}`);
     return response.data;
   } catch (error) {
     console.error("Error fetching place by ID:", error);
@@ -49,14 +49,12 @@ export const fetchPlaceById = async (id: string) => {
   }
 };
 
-// Fetch categories with a fixed limit
 export const fetchCategories = async (): Promise<string[]> => {
-  const { data } = await axios.get<PlacesResponse>(API_BASE_URL, {
+  const { data } = await axios.get<PlacesResponse>(OCTIV_API_PUBLIC_URL, {
     params: {
       limit: 50,
     },
   });
 
-  // Extract and return unique categories
   return filterCategories(data.data || []);
 };

@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Table,
   TableBody,
   TableHead,
   TableRow,
-  Pagination,
-  Box,
   CircularProgress,
+  Box,
+  TablePagination,
 } from "@mui/material";
 import {
   StyledTableCell,
@@ -14,15 +14,13 @@ import {
   StyledTableHeaderCell,
   StyledTableContainer,
   CenteredContainer,
-} from "../styles/TableStyles";
-
-interface Place {
-  id: string;
-  name: string;
-  category: string;
-  description: string;
-  address: string;
-}
+} from "../../styles/TableStyles";
+import { useTranslation } from "react-i18next";
+import LanguageSelect from "../languageSelect/language-select";
+import i18n from "../../i18n";
+import { Place } from "../../types/Places";
+import { useTheme } from "styled-components";
+import { lightTheme } from "../../styles/themes";
 
 interface TableContentProps {
   places: Place[];
@@ -31,6 +29,7 @@ interface TableContentProps {
   setPage: React.Dispatch<React.SetStateAction<number>>;
   totalItems: number;
   limit: number;
+  setLimit: React.Dispatch<React.SetStateAction<number>>;
   sortBy: string;
   setSortBy: React.Dispatch<React.SetStateAction<string>>;
   sortDirection: string;
@@ -45,27 +44,40 @@ export const TableContent: React.FC<TableContentProps> = ({
   setPage,
   totalItems,
   limit,
+  setLimit,
   sortBy,
   setSortBy,
   sortDirection,
   setSortDirection,
   isLoading,
 }) => {
-  // Handle page change
-  const handlePageChange = (
-    event: React.ChangeEvent<unknown>,
-    value: number
+  const [language, setLanguage] = useState<string>("en");
+
+  function handleLanguageChange(language: string) {
+    i18n.changeLanguage(language);
+    setLanguage(language);
+  }
+
+  const { t } = useTranslation();
+  const theme = useTheme();
+
+  const handlePageChange = (event: unknown, newPage: number) => {
+    setPage(newPage + 1);
+  };
+
+  const handleRowsPerPageChange = (
+    event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setPage(value);
+    setLimit(parseInt(event.target.value, 10));
+    setPage(1);
   };
 
   const handleSort = (column: string) => {
     if (sortBy === column) {
-      // Toggle between ascending and descending
       setSortDirection(sortDirection === "asc" ? "desc" : "asc");
     } else {
       setSortBy(column);
-      setSortDirection("asc"); // Default to ascending order
+      setSortDirection("asc");
     }
   };
 
@@ -83,22 +95,21 @@ export const TableContent: React.FC<TableContentProps> = ({
         <Table stickyHeader>
           <TableHead>
             <TableRow>
-              {/* Header cells with sorting functionality */}
               <StyledTableHeaderCell onClick={() => handleSort("name")}>
-                Name{" "}
+                {t("name")}{" "}
                 {sortBy === "name" && (sortDirection === "asc" ? "▲" : "▼")}
               </StyledTableHeaderCell>
               <StyledTableHeaderCell onClick={() => handleSort("category")}>
-                Category{" "}
+                {t("category")}{" "}
                 {sortBy === "category" && (sortDirection === "asc" ? "▲" : "▼")}
               </StyledTableHeaderCell>
               <StyledTableHeaderCell onClick={() => handleSort("description")}>
-                Description{" "}
+                {t("description")}{" "}
                 {sortBy === "description" &&
                   (sortDirection === "asc" ? "▲" : "▼")}
               </StyledTableHeaderCell>
               <StyledTableHeaderCell onClick={() => handleSort("address")}>
-                Address{" "}
+                {t("address")}{" "}
                 {sortBy === "address" && (sortDirection === "asc" ? "▲" : "▼")}
               </StyledTableHeaderCell>
             </TableRow>
@@ -119,12 +130,31 @@ export const TableContent: React.FC<TableContentProps> = ({
         </Table>
       </StyledTableContainer>
 
-      <Box mt={2} display="flex" justifyContent="center">
-        <Pagination
-          count={Math.ceil(totalItems / limit)} // Total number of pages
-          page={page}
-          onChange={handlePageChange}
+      <Box
+        mt={2}
+        display="flex"
+        flexWrap="wrap"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <LanguageSelect
+          language={language}
+          handleLanguageChange={handleLanguageChange}
+        />
+        <TablePagination
+          component="div"
+          count={totalItems}
+          page={page - 1}
+          onPageChange={handlePageChange}
+          rowsPerPage={limit}
+          onRowsPerPageChange={handleRowsPerPageChange}
+          rowsPerPageOptions={[3, 5, 10, 25, 50]}
+          labelRowsPerPage={t("Rows per page")}
           color="primary"
+          sx={{
+            borderRadius: "5px",
+            background: theme === lightTheme ? "white" : "#77767682",
+          }}
         />
       </Box>
     </>
