@@ -30,6 +30,7 @@ const App: React.FC = () => {
   const [sortDirection, setSortDirection] = useState<string>("asc");
   const [theme, setTheme] = useState<"light" | "dark">("light");
   const [limit, setLimit] = useState<number>(10);
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   const { t } = useTranslation();
 
@@ -112,10 +113,14 @@ const App: React.FC = () => {
                 categories={categories}
                 handleSearchSubmit={handleSearchSubmit}
                 setPage={setPage}
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
               />
             )}
             {activeTab === 1 && (
               <PlacesTable
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
                 places={places?.data ?? []}
                 category={category}
                 setCategory={setCategory}

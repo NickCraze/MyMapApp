@@ -18,6 +18,8 @@ const StyledForm = styled.form`
 `;
 
 interface SearchBarProps {
+  searchQuery: string;
+  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
   handleSearchSubmit: (searchQuery: string) => void;
   setPage: (page: number) => void;
 }
@@ -25,9 +27,9 @@ interface SearchBarProps {
 export const SearchBar: React.FC<SearchBarProps> = ({
   handleSearchSubmit,
   setPage,
+  searchQuery,
+  setSearchQuery,
 }) => {
-  const [searchQuery, setSearchQuery] = useState<string>("");
-
   const { t } = useTranslation();
 
   const handleSubmit = (event: React.FormEvent) => {

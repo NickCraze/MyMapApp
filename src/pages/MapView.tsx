@@ -37,6 +37,8 @@ type MapViewProps = {
   categories: string[];
   setCategory: React.Dispatch<React.SetStateAction<string>>;
   category: string;
+  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
+  searchQuery: string;
   handleSearchSubmit: (searchQuery: string) => void;
   setPage: (page: number) => void;
 };
@@ -48,6 +50,8 @@ export const MapView: React.FC<MapViewProps> = ({
   category,
   handleSearchSubmit,
   setPage,
+  searchQuery,
+  setSearchQuery,
 }) => {
   const [language, setLanguage] = useState<string>("en");
 
@@ -65,9 +69,12 @@ export const MapView: React.FC<MapViewProps> = ({
       <MapPlaceholder>
         <Wrapper>
           <SearchBar
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
             setPage={setPage}
             handleSearchSubmit={handleSearchSubmit}
           />
+
           <CategorySelect
             setPage={setPage}
             category={category}
@@ -93,8 +100,8 @@ export const MapView: React.FC<MapViewProps> = ({
             />
           ) : (
             <TileLayer
-              attribution="Stamen darkmode"
-              url="https://tiles.stadiamaps.com/tiles/alidade_satellite/{z}/{x}/{y}{r}.png"
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">Coolest map</a> contributors'
+              url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
             />
           )}
 

@@ -2,7 +2,9 @@ import axios from "axios";
 import { PlacesResponse } from "../types/Places";
 import { filterCategories } from "../utils/filterCategories";
 
-const OCTIV_API_PUBLIC_URL = "https://api-octiv-test.vercel.app/api/places"; // Would usually go in the process.env file
+// Would usually go in the process.env file
+// const OCTIV_API_PUBLIC_URL = "https://api-octiv-test.vercel.app/api/places";
+// Trying to fix vercel deployment so commenting the api url out for now
 
 export const fetchPlaces = async (
   search: string,
@@ -33,15 +35,20 @@ export const fetchPlaces = async (
     params.page = page;
   }
 
-  const { data } = await axios.get<PlacesResponse>(OCTIV_API_PUBLIC_URL, {
-    params,
-  });
+  const { data } = await axios.get<PlacesResponse>(
+    "https://api-octiv-test.vercel.app/api/places",
+    {
+      params,
+    }
+  );
   return data;
 };
 
 export const fetchPlaceById = async (id: string) => {
   try {
-    const response = await axios.get(`${OCTIV_API_PUBLIC_URL}/${id}`);
+    const response = await axios.get(
+      `${"https://api-octiv-test.vercel.app/api/places"}/${id}`
+    );
     return response.data;
   } catch (error) {
     console.error("Error fetching place by ID:", error);
@@ -50,11 +57,14 @@ export const fetchPlaceById = async (id: string) => {
 };
 
 export const fetchCategories = async (): Promise<string[]> => {
-  const { data } = await axios.get<PlacesResponse>(OCTIV_API_PUBLIC_URL, {
-    params: {
-      limit: 50,
-    },
-  });
+  const { data } = await axios.get<PlacesResponse>(
+    "https://api-octiv-test.vercel.app/api/places",
+    {
+      params: {
+        limit: 50,
+      },
+    }
+  );
 
   return filterCategories(data.data || []);
 };
