@@ -37,6 +37,8 @@ type MapViewProps = {
   categories: string[];
   setCategory: React.Dispatch<React.SetStateAction<string>>;
   category: string;
+  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
+  searchQuery: string;
   handleSearchSubmit: (searchQuery: string) => void;
   setPage: (page: number) => void;
 };
@@ -48,6 +50,8 @@ export const MapView: React.FC<MapViewProps> = ({
   category,
   handleSearchSubmit,
   setPage,
+  searchQuery,
+  setSearchQuery,
 }) => {
   const [language, setLanguage] = useState<string>("en");
 
@@ -65,9 +69,12 @@ export const MapView: React.FC<MapViewProps> = ({
       <MapPlaceholder>
         <Wrapper>
           <SearchBar
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
             setPage={setPage}
             handleSearchSubmit={handleSearchSubmit}
           />
+
           <CategorySelect
             setPage={setPage}
             category={category}

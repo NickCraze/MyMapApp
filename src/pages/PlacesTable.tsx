@@ -23,12 +23,14 @@ type TableViewProps = {
   limit: number;
   totalItems: number;
   isLoading: boolean;
+  searchQuery: string;
   setCategory: React.Dispatch<React.SetStateAction<string>>;
   setSortBy: React.Dispatch<React.SetStateAction<string>>;
   setSortDirection: React.Dispatch<React.SetStateAction<string>>;
   setPage: React.Dispatch<React.SetStateAction<number>>;
   setLimit: React.Dispatch<React.SetStateAction<number>>;
   handleSearchSubmit: (searchQuery: string) => void;
+  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export const PlacesTable: React.FC<TableViewProps> = ({
@@ -41,6 +43,8 @@ export const PlacesTable: React.FC<TableViewProps> = ({
   limit,
   totalItems,
   isLoading,
+  searchQuery,
+  setSearchQuery,
   handleSearchSubmit,
   setCategory,
   setSortBy,
@@ -69,7 +73,7 @@ export const PlacesTable: React.FC<TableViewProps> = ({
   return (
     <>
       <SearchWrapper>
-        <SearchBar setPage={setPage} handleSearchSubmit={handleSearchSubmit} />
+        <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} setPage={setPage} handleSearchSubmit={handleSearchSubmit} />
         <CategorySelect
           category={category}
           setCategory={setCategory}
