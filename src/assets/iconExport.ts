@@ -7,7 +7,7 @@ export const customIcons = {
   }),
   hotelIcon: new Icon({
     iconUrl: require("./icons/hotel.png"),
-    iconSize: [30, 30],
+    iconSize: [35, 35],
   }),
   service_stationIcon: new Icon({
     iconUrl: require("./icons/service_station.png"),

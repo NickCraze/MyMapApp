@@ -101,7 +101,7 @@ export const MapView: React.FC<MapViewProps> = ({
           ) : (
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">Coolest map</a> contributors'
-              url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
+              url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
             />
           )}
 
